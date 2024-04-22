@@ -1,24 +1,19 @@
-import logo from './logo.svg';
-import './App.css';
-
+import { Route, Routes } from "react-router-dom";
+import Topicinput from "./Topicinput";
+import SubTopics from "./SubTopics";
+import Learn from "./Learn";
+import Test from "./Test";
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+    <Routes>
+      {/* <Route path="/SubTopic" element={<SubTopics/>}></Route> */}
+      <Route path="/Learn" element={<Learn/>}></Route>
+      <Route path="/Test" element={<Test/>}></Route>
+      <Route path="*" element={<Topicinput/>}></Route>
+
+    </Routes>
+    </>
   );
 }
 
