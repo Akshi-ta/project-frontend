@@ -35,7 +35,7 @@ export default function Topicinput() {
         }
     }
 
-    const dummy = {"topic":"C++","subtopics":[{"subtopic number":1,"subtopic name":"Introduction to C++","duration":"2 hours"},{"subtopic number":2,"subtopic name":"Data Types and Variables","duration":"2 hours"},{"subtopic number":3,"subtopic name":"Operators and Expressions","duration":"2 hours"},{"subtopic number":4,"subtopic name":"Control Flow","duration":"3 hours"},{"subtopic number":5,"subtopic name":"Functions","duration":"4 hours"},{"subtopic number":6,"subtopic name":"Classes and Objects","duration":"5 hours"},{"subtopic number":7,"subtopic name":"Inheritance and Polymorphism","duration":"4 hours"},{"subtopic number":8,"subtopic name":"Templates and Generic Programming","duration":"3 hours"},{"subtopic number":9,"subtopic name":"Advanced C++ Features","duration":"5 hours"}]}
+    // const dummy = {"topic":"C++","subtopics":[{"subtopic number":1,"subtopic name":"Introduction to C++","duration":"2 hours"},{"subtopic number":2,"subtopic name":"Data Types and Variables","duration":"2 hours"},{"subtopic number":3,"subtopic name":"Operators and Expressions","duration":"2 hours"},{"subtopic number":4,"subtopic name":"Control Flow","duration":"3 hours"},{"subtopic number":5,"subtopic name":"Functions","duration":"4 hours"},{"subtopic number":6,"subtopic name":"Classes and Objects","duration":"5 hours"},{"subtopic number":7,"subtopic name":"Inheritance and Polymorphism","duration":"4 hours"},{"subtopic number":8,"subtopic name":"Templates and Generic Programming","duration":"3 hours"},{"subtopic number":9,"subtopic name":"Advanced C++ Features","duration":"5 hours"}]}
 
 
     return (

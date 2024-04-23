@@ -23,6 +23,7 @@ export default function Test() {
             // alert(JSON.stringify(servermesg.data.response));
             const responseObject = JSON.parse(servermesg.data.response);
             alert(JSON.stringify(responseObject));
+            console.log(responseObject);
             setObj(responseObject);
         } else {
             alert(JSON.stringify(servermesg.data));
