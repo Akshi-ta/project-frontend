@@ -80,7 +80,6 @@ export default function Topicinput() {
                         <button
                             onClick={() => {
                                 console.log(index+1);
-                                console.log(userData.topics[index].subto);
                                 setSelectedTab(index+1)
                             }}
                         >
