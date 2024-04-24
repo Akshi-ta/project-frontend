@@ -15,16 +15,17 @@ export default function Test() {
     async function fetchData() {
         const url = "http://localhost:2003/product/test";
         const obj = {
-            "topic": location.state.topic,
-            "subtopic": location.state.subtopic
+            "topicName": location.state.topic,
+            "subtopicName": location.state.subtopic,
+            "subtopic":location.state.id
         }
         const servermesg = await axios.post(url, obj);
         if (servermesg.data.status === true) {
-            // alert(JSON.stringify(servermesg.data.response));
-            const responseObject = JSON.parse(servermesg.data.response);
-            alert(JSON.stringify(responseObject));
-            console.log(responseObject);
-            setObj(responseObject);
+            alert(JSON.stringify(servermesg.data.response));
+            // const responseObject = JSON.parse(servermesg.data.response);
+            // alert(JSON.stringify(responseObject));
+            // console.log(responseObject);
+            // setObj(responseObject);
         } else {
             alert(JSON.stringify(servermesg.data));
         }

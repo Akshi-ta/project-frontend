@@ -18,7 +18,7 @@ export default function SubTopics({ data }) {
             if(obj.name === "learn")
                 navigate("/Learn", { state: { topic: obj.topic, subtopic: obj.subtopic , id: obj._id } });
             else if(obj.name === "test")
-                navigate("/Test", { state: { topic: obj.topic, subtopic: obj.subtopic } });
+                navigate("/Test", { state: { topic: obj.topic, subtopic: obj.subtopic, id: obj._id  } });
         }
     }, [obj]);
 

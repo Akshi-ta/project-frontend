@@ -2,21 +2,23 @@ import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom"
 import axios from "axios";
 import Presentation from "./Presentation";
+import QnaFormat from "./QnaFormat";
 export default function Learn() {
     const location = useLocation();
     const [obj, setObj] = useState("");
     const [showInput, setShowInput] = useState(false);
     const [question, setQuestion] = useState('');
-  
+    const [showQuestion, setshowQuestion] = useState([]);
+
     const toggleInput = () => {
-      setShowInput(!showInput);
+        setShowInput(!showInput);
     };
-  
+
     const handleInputChange = (event) => {
-      setQuestion(event.target.value);
+        setQuestion(event.target.value);
     };
-  
-    async function handleSend(){
+
+    async function handleSend() {
         const url = "http://localhost:2003/product/learn/chat";
         const data = {
             "topicName": location.state.topic,
@@ -24,13 +26,39 @@ export default function Learn() {
             "subtopicId": location.state.id,
             "message": question
         }
-        const servermesg = await axios.post(url,data);
-        alert(JSON.stringify(servermesg.data.response));
-      console.log("Question sent:", question);
-      setObj(...obj , question)
-      // Reset the input field and show the "Ask Question" button again
-      setQuestion('');
-      setShowInput(false);
+        const servermesg = await axios.post(url, data);
+        // alert(JSON.stringify(servermesg.data.response));
+        console.log("Question sent:", question);
+        // setshowQuestion(...showQuestion,
+        //     {
+        //         "question": question,
+        //         "responseByServer": servermesg.data.response
+        //     }
+        // );
+        // setshowQuestion(prevQuestions => [
+        //       ...prevQuestions,
+        //       {
+        //         question: question,
+        //         responseByServer: servermesg.data.response
+        //       }
+        //     ]);
+        const appendQuestion = (question, response) => {
+            setshowQuestion(prevQuestions => [
+              ...prevQuestions,
+              {
+                question: question,
+                responseByServer: response
+              }
+            ]);
+          };
+          
+          // Assuming 'question' and 'servermesg.data.response' are available here
+          appendQuestion(question, servermesg.data.response);
+        
+        //   setObj(...obj , question)
+        // Reset the input field and show the "Ask Question" button again
+        setQuestion('');
+        setShowInput(false);
     };
 
     useEffect(() => {
@@ -47,8 +75,8 @@ export default function Learn() {
         }
         const servermesg = await axios.post(url, obj);
         if (servermesg.data.status === true) {
-            alert(JSON.stringify(servermesg.data.response));
-            setObj(servermesg.data.response);
+            // alert(JSON.stringify(servermesg.data.response));
+            setObj(servermesg.data.response.explanation);
         } else {
             alert(JSON.stringify(servermesg.data));
         }
@@ -65,6 +93,10 @@ export default function Learn() {
                 {<div>
                     {obj && Object.keys(obj).length > 0 ? <Presentation data={obj} /> : <div>Loading...</div>}
                 </div>}
+                {/* {JSON.stringify(showQuestion)} */}
+                {
+                    showQuestion.length > 0 ? <QnaFormat data={showQuestion} /> : ""
+                }
                 <div className="fixed bottom-8 right-8">
                     {!showInput && (
                         <button
