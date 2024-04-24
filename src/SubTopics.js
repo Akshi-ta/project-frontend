@@ -2,6 +2,10 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 export default function SubTopics({ data }) {
 
+    useEffect(()=>{
+        console.log(data);
+    },[]);
+
     const navigate = useNavigate();
     const [flag , setFlag] = useState(0);
     const [obj , setObj] = useState(
@@ -27,6 +31,12 @@ export default function SubTopics({ data }) {
         function onClickListener(event)
         {
             // alert(event.target.name)
+            console.log({
+                _id:subtopic["_id"],
+                name:event.target.name,
+                topic: data.topic,
+                subtopic:subtopic["subtopic name"]
+            });
             setObj(
                 {
                     _id:subtopic["_id"],
@@ -51,6 +61,8 @@ export default function SubTopics({ data }) {
             </div>
         );
     }
+
+
     return (
         <>
         {JSON.stringify(obj)}
