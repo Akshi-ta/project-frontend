@@ -9,8 +9,31 @@ export default function Topicinput() {
     const [flag, setflag] = useState(0);
 
     useEffect(() => {
+        // localStorage.setItem("topicId", "");
+        // alert(localStorage.getItem("topicId"));
+        alert(localStorage.getItem("topic"));
+        const topicId = localStorage.getItem("topicId");
+        if (topicId !== "") {
+            alert("hi");
+            getSubtopics();
+        }
+    }, []);
+    
+
+    useEffect(() => {
         setflag(1);
-    }, [subtopics])
+    }, [subtopics]) 
+
+    async function getSubtopics()
+    {
+        // alert(localStorage.getItem("topicId"));
+        const url = "http://localhost:2003/product/getSubtopics";
+        const servermesg = await axios.post(url,{topicId:localStorage.getItem("topicId")} );
+        // alert(JSON.stringify(servermesg));
+        setSubtopics(servermesg.data.out);
+        alert(JSON.stringify(servermesg.data));
+        setObj({topic:servermesg.data.topicName})
+    }
 
     function onChangeListener(event) {
         const { name, value } = event.target;
@@ -20,15 +43,21 @@ export default function Topicinput() {
 
 
     async function onClickListener() {
+        
         const url = "http://localhost:2003/product/add";
         alert(JSON.stringify(obj));
-        const servermesg = await axios.post(url, obj);
+        const finalObj = 
+        {
+            obj: obj,
+            email: localStorage.getItem("email")
+        }
+        const servermesg = await axios.post(url, finalObj);
         if (servermesg.data.status === true) {
-            const responseData = servermesg.data.response.replace(/`/g, "").trim();
-            const responseObject = JSON.parse(responseData);
-            alert(JSON.stringify(responseObject));
-            setSubtopics(responseObject);
-            // setflag(1);
+            alert(JSON.stringify(servermesg.data.out))
+            localStorage.setItem("topic" , obj.topic);
+            localStorage.setItem("topicId" , servermesg.data.topicId);
+            setSubtopics(servermesg.data.out);
+            alert(localStorage.getItem("topicId" ));
         } else {
 
             alert(JSON.stringify(servermesg.data));
@@ -40,6 +69,7 @@ export default function Topicinput() {
 
     return (
         <>
+            {JSON.stringify(obj)}
             {JSON.stringify(subtopics)}
             <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
                 <div>
@@ -70,7 +100,7 @@ export default function Topicinput() {
             </div>
             {/* {flag === 1 ? <SubTopics data={dummy} ></SubTopics> : ""} */}
             <div>
-                {flag === 1 && subtopics && Object.keys(subtopics).length > 0 ? <SubTopics data={subtopics} /> : <div>Loading...</div>}
+                {flag === 1 && subtopics && Object.keys(subtopics).length > 0 ? <SubTopics data={{obj , subtopics:subtopics , topic:localStorage.getItem("topic")}} /> : <div>Loading...</div>}
             </div>
             {/* <div>
                 {  <SubTopics data={dummy} />}

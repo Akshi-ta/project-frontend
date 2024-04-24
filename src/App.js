@@ -4,14 +4,9 @@ import SubTopics from "./SubTopics";
 import Learn from "./Learn";
 import Test from "./Test";
 import Login from "./Login";
-import useToken from "./useToken";
+import Signup from "./Signup";
 
 function App() {
-  const { token, setToken } = useToken();
-
-  if(!token) {
-    return <Login setToken={setToken} />
-  }
 
   return (
     <>
@@ -20,7 +15,9 @@ function App() {
       {/* <Route path="/login" element={<Login/>}></Route> */}
       <Route path="/Learn" element={<Learn/>}></Route>
       <Route path="/Test" element={<Test/>}></Route>
-      <Route path="*" element={<Topicinput/>}></Route>
+      <Route path="/TopicInput" element={<Topicinput/>}></Route>
+      <Route path="/Login" element={<Login/>}></Route>
+      <Route path="*" element={<Signup/>}></Route>
 
     </Routes>
     </>

@@ -4,13 +4,9 @@ export default function SubTopics({ data }) {
 
     const navigate = useNavigate();
     const [flag , setFlag] = useState(0);
-
-    // useEffect(()=>{
-    //     navigate("/Learn" ,{state:{topic:data.topic}})
-    // }, flag)
-
     const [obj , setObj] = useState(
         {
+            _id:"",
             name:"",
             topic:"",
             subtopic:""
@@ -20,7 +16,7 @@ export default function SubTopics({ data }) {
     useEffect(() => {
         if (obj.topic && obj.subtopic) {
             if(obj.name === "learn")
-                navigate("/Learn", { state: { topic: obj.topic, subtopic: obj.subtopic } });
+                navigate("/Learn", { state: { topic: obj.topic, subtopic: obj.subtopic , id: obj._id } });
             else if(obj.name === "test")
                 navigate("/Test", { state: { topic: obj.topic, subtopic: obj.subtopic } });
         }
@@ -33,6 +29,7 @@ export default function SubTopics({ data }) {
             // alert(event.target.name)
             setObj(
                 {
+                    _id:subtopic["_id"],
                     name:event.target.name,
                     topic: data.topic,
                     subtopic:subtopic["subtopic name"]
@@ -43,6 +40,7 @@ export default function SubTopics({ data }) {
 
         return (
             <div className="bg-white border border-gray-300 rounded-lg p-4 shadow-md hover:shadow-lg transition duration-300 ease-in-out">
+                {/* <h3 className="text-lg font-bold">{subtopic["_id"]}</h3> */}
                 <h3 className="text-lg font-bold">{subtopic["subtopic number"]}</h3>
                 <h3 className="text-lg font-bold">{subtopic["subtopic name"]}</h3>
                 <p><strong>Duration:</strong> {subtopic.duration}</p>
