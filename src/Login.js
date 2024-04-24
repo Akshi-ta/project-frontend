@@ -17,9 +17,9 @@ export default function Login() {
   }
 
   async function doLoginInfo() {
-
     const url = "http://localhost:2003/product/dologin";
     const servermesg = await axios.post(url, loginInfo);
+    localStorage.removeItem("email");
     if (servermesg.data.status === true) {
       localStorage.setItem("email", loginInfo.email);
       alert("welcome " + localStorage.getItem("email"));
