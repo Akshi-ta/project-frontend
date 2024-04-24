@@ -1,6 +1,7 @@
 import { React, useState } from 'react';
 import { Done, Close } from '@mui/icons-material';
-const QuestionFormat = ({ data }) => {
+import axios from 'axios';
+const QuestionFormat = ({ data , props}) => {
     const [selectedOptions, setSelectedOptions] = useState({});
     const [isTestSubmitted, setTestSubmitted] = useState(false);
 
@@ -13,7 +14,7 @@ const QuestionFormat = ({ data }) => {
 
 
     const renderQuestions = () => {
-        return data.Questions.map(question => (
+        return data.map(question => (
             <div key={question["question number"]} className="mb-8 ml-10">
                 <div className='flex'>
                     <h3 className="text-lg font-semibold mb-2">Question {question["question number"]}: {question.Question}</h3>
@@ -40,44 +41,58 @@ const QuestionFormat = ({ data }) => {
                                 onChange={() => handleOptionChange(question["question number"], index)}
                                 className="mr-2"
                             />
-                            <label htmlFor={`option_${question["question number"]}_${index}`}> {option}</label>
+                            <label htmlFor={`option_${question["question number"]}_${index}`}> {option.Option}</label>
+
                         </li>
                     ))}
                 </ul>
-                {/* <p className="text-gray-700"><strong>Correct Option:</strong> Option {String.fromCharCode(97 + question["correct option"].charCodeAt() - 'a'.charCodeAt())}</p> */}
             </div>
         ));
     };
 
-    const onSubmitTest = () => {
+    async function onSubmitTest() {
         setTestSubmitted(true);
+        const url = "http://localhost:2003/product/test/save";
+        const object = {
+            testId: props.testId,
+            answers: selectedOptions
+        }
+        alert(JSON.stringify(object.answers));
+        await axios.post(url ,object )
     }
 
     const calculateResult = () => {
         let correctAnswers = 0;
-        data.Questions.forEach(question => {
-            if (selectedOptions[question["question number"]] === question["correct option"]) {
+        console.log(data);
+        data.forEach(element => {
+            if(selectedOptions[element["question number"]]==element["correct option"]){
                 correctAnswers++;
             }
         });
-        if (correctAnswers >= 0.8 * data.Questions.length) {
-            return 'You passed'
-
+    
+        if (correctAnswers >= 0.8 * getTotalQuestions()) {
+            return 'You passed';
         }
         return 'You failed';
-    }
+    };
+    
+    const getTotalQuestions = () => {
+        return data.reduce((total, item) => total + item.Question.length, 0);
+    };
+    
 
     return (
         <>
-            {JSON.stringify(selectedOptions)}
-
+        {JSON.stringify(selectedOptions)}
             <div >
-                {data && (
+                {data
+                 && (
                     <>
-                        <h2 className="text-2xl font-bold mb-6 text-center">{data.subtopic}</h2>
+                        <h2 className="text-2xl font-bold mb-6 text-center">{data.subtopic}</h2> 
                         {renderQuestions()}
                     </>
-                )}
+                )
+                }
             </div>
             <div>
                 {/* {!isTestSubmitted? */}
