@@ -9,6 +9,7 @@ export default function Signup() {
         email: "",
         password: ""
     })
+    const [error, setError] = useState("");
     function doSignup(event) {
         var { name, value } = event.target;
         setInfo({ ...info, [name]: value });
@@ -18,14 +19,16 @@ export default function Signup() {
         // alert("hello");
         const url = "http://localhost:2003/product/signup";
         const servermesg = await axios.post(url, info);
-        alert(JSON.stringify(servermesg.data.rec));
+        if(!servermesg.data.rec){
+            setError(servermesg.data.out);
+        }else{
+            setError("");
+        }
+        localStorage.removeItem("email");
         if (servermesg.data.status === true) {
             localStorage.setItem("email", servermesg.data.rec.email  );
             alert( localStorage.getItem("email"));
             navigate("/TopicInput");
-        }
-        else {
-            alert(servermesg.data.err);
         }
     }
 
@@ -84,6 +87,9 @@ export default function Signup() {
                             >
                                 Sign Up
                             </button>
+                        </div>
+                        <div>
+                            {error}
                         </div>
                         <div class="text-sm">
                             <Link to="/Login" class="font-semibold text-indigo-600 hover:text-indigo-500">Already a user?</Link>
