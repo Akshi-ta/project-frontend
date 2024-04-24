@@ -57,7 +57,6 @@ const QuestionFormat = ({ data , props}) => {
             testId: props.testId,
             answers: selectedOptions
         }
-        alert(JSON.stringify(object.answers));
         await axios.post(url ,object )
     }
 
@@ -83,7 +82,6 @@ const QuestionFormat = ({ data , props}) => {
 
     return (
         <>
-        {JSON.stringify(selectedOptions)}
             <div >
                 {data
                  && (

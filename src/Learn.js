@@ -27,36 +27,19 @@ export default function Learn() {
             "message": question
         }
         const servermesg = await axios.post(url, data);
-        // alert(JSON.stringify(servermesg.data.response));
         console.log("Question sent:", question);
-        // setshowQuestion(...showQuestion,
-        //     {
-        //         "question": question,
-        //         "responseByServer": servermesg.data.response
-        //     }
-        // );
-        // setshowQuestion(prevQuestions => [
-        //       ...prevQuestions,
-        //       {
-        //         question: question,
-        //         responseByServer: servermesg.data.response
-        //       }
-        //     ]);
         const appendQuestion = (question, response) => {
             setshowQuestion(prevQuestions => [
-              ...prevQuestions,
-              {
-                question: question,
-                responseByServer: response
-              }
+                ...prevQuestions,
+                {
+                    question: question,
+                    responseByServer: response
+                }
             ]);
-          };
-          
-          // Assuming 'question' and 'servermesg.data.response' are available here
-          appendQuestion(question, servermesg.data.response);
-        
-        //   setObj(...obj , question)
-        // Reset the input field and show the "Ask Question" button again
+        };
+
+        appendQuestion(question, servermesg.data.response);
+
         setQuestion('');
         setShowInput(false);
     };
@@ -75,10 +58,9 @@ export default function Learn() {
         }
         const servermesg = await axios.post(url, obj);
         if (servermesg.data.status === true) {
-            // alert(JSON.stringify(servermesg.data.response));
             setObj(servermesg.data.response.explanation);
         } else {
-            alert(JSON.stringify(servermesg.data));
+            alert((servermesg.data));
         }
     }
 
@@ -93,7 +75,6 @@ export default function Learn() {
                 {<div>
                     {obj && Object.keys(obj).length > 0 ? <Presentation data={obj} /> : <div>Loading...</div>}
                 </div>}
-                {/* {JSON.stringify(showQuestion)} */}
                 {
                     showQuestion.length > 0 ? <QnaFormat data={showQuestion} /> : ""
                 }

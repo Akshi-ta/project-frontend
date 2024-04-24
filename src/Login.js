@@ -89,7 +89,6 @@ export default function Login() {
           </div>
         </div>
       </div>
-      {/* {JSON.stringify(loginInfo)}; */}
     </>
   )
 }

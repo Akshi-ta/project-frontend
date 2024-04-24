@@ -11,17 +11,6 @@ export default function Topicinput() {
     const [selectedTab, setSelectedTab] = useState(0);
     const [userData, setUserData] = useState(null);
 
-    // useEffect(() => {
-    //     // localStorage.setItem("topicId", "");
-    //     // alert(localStorage.getItem("topicId"));
-    //     alert(localStorage.getItem("topic"));
-    //     const topicId = localStorage.getItem("topicId");
-    //     if (topicId !== "") {
-    //         alert("hi");
-    //         getSubtopics();
-    //     }
-    // }, []);
-
     useEffect(() => {
         (async () => {
             const email = localStorage.getItem("email");
@@ -53,17 +42,11 @@ export default function Topicinput() {
             alert(JSON.stringify(servermesg.data.user))
             console.log("new data", servermesg.data.user.out);
             setUserData(servermesg.data.user.out);
-            // localStorage.setItem("topic" , obj.topic);
-            // localStorage.setItem("topicId" , servermesg.data.topicId);
             setSubtopics(servermesg.data.subtopics);
-            // alert(localStorage.getItem("topicId" ));
         } else {
             alert("error");
         }
     }
-
-    // const dummy = {"topic":"C++","subtopics":[{"subtopic number":1,"subtopic name":"Introduction to C++","duration":"2 hours"},{"subtopic number":2,"subtopic name":"Data Types and Variables","duration":"2 hours"},{"subtopic number":3,"subtopic name":"Operators and Expressions","duration":"2 hours"},{"subtopic number":4,"subtopic name":"Control Flow","duration":"3 hours"},{"subtopic number":5,"subtopic name":"Functions","duration":"4 hours"},{"subtopic number":6,"subtopic name":"Classes and Objects","duration":"5 hours"},{"subtopic number":7,"subtopic name":"Inheritance and Polymorphism","duration":"4 hours"},{"subtopic number":8,"subtopic name":"Templates and Generic Programming","duration":"3 hours"},{"subtopic number":9,"subtopic name":"Advanced C++ Features","duration":"5 hours"}]}
-
     return (
         <>
             <div className='flex'>
